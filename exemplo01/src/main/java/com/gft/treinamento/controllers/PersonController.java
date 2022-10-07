@@ -35,7 +35,8 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView newPerson(Person person) {
 		ModelAndView mv = new ModelAndView("person.html");
-
+		
+		personService.savePerson(person);
 		mv.addObject("person", person);
 		return mv;
 	}
