@@ -1,5 +1,7 @@
 package com.gft.treinamento.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,17 @@ public class PersonService {
 		return person;
 	}
 	
-	public void savePerson(Person person) {
-		personRepository.save(person);
+	public Person savePerson(Person person) {
+		return personRepository.save(person);
+	}
+	
+	public Person getPerson(Long id) throws Exception {
+		Optional<Person> person = personRepository.findById(id);
+		
+		if(person.isEmpty()) {
+			throw new Exception("Não há cadastro!");
+		}
+		
+		return person.get();
 	}
 }
