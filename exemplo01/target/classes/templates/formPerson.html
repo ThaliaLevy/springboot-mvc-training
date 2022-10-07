@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th"http://www.thymeleaf.org" lang="pt-br">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Cadastrar pessoa</title>
+</head>
+
+<body>
+	<form method="POST" th:action="@{/person}" th:object="${person}">
+		Nome: <input type="text" th:field="*{name}"></input><br>
+		Idade: <input type="text" th:field="*{age}"></input><br>
+		Status:
+		<select th:field="*{status}">
+			<option value = "1">Ativo</option>
+			<option value = "0">Inativo</option>
+		</select><br>
+		<button type="submit">Salvar</button>
+	</form>
+</body>
+
+</html>
