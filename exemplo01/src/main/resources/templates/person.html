@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th"http://www.thymeleaf.org" lang="pt-br">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Index</title>
+</head>
+
+<body>
+<span th:text="${person.name}"></span> é o nome!<br>
+<span th:text="${person.age}"></span> é a idade!<br>
+<span th:text="${person.status ? 'Ativo' : 'Inativo'}"></span> é o status!<br>
+</body>
+
+</html>
