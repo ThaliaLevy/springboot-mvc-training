@@ -24,7 +24,7 @@ public class PersonController {
 		mv.addObject("person", new Person());
 		return mv;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/edit")
 	public ModelAndView editPerson(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("formPerson.html");
@@ -37,26 +37,49 @@ public class PersonController {
 		return mv;
 	}
 
-
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, path = "/get")
 	public ModelAndView getPerson(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("person.html");
 
 		try {
 			mv.addObject("person", personService.getPerson(id));
-			//mv.addObject("person", personService.createPerson());
+			// mv.addObject("person", personService.createPerson());
 		} catch (Exception e) {
 			mv.addObject("message", e.getMessage());
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView newPerson(Person person) {
 		ModelAndView mv = new ModelAndView("person.html");
-		
+
 		person = personService.savePerson(person);
 		mv.addObject("person", person);
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/delete")
+	public ModelAndView deletePerson(@RequestParam Long id) {
+		ModelAndView mv = new ModelAndView("person.html");
+
+		try {
+			personService.deletePerson(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		mv.addObject("message", id + " excluído!");
+		return mv;
+	}
+
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView listPerson() {
+		ModelAndView mv = new ModelAndView("listPerson.html");
+
+		mv.addObject("list", personService.listPerson());
 		return mv;
 	}
 
