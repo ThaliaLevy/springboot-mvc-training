@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.treinamento.entities.Person;
 import com.gft.treinamento.services.PersonService;
@@ -51,17 +52,18 @@ public class PersonController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView newPerson(Person person) {
-		ModelAndView mv = new ModelAndView("person.html");
+	public ModelAndView newPerson(Person person, RedirectAttributes redirectAttributes) {
+		ModelAndView mv = new ModelAndView("redirect:/person");
 
 		person = personService.savePerson(person);
-		mv.addObject("person", person);
+		redirectAttributes.addFlashAttribute("message", "Pessoa salva com sucesso!");
 		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/delete")
-	public ModelAndView deletePerson(@RequestParam Long id) {
-		ModelAndView mv = new ModelAndView("person.html");
+	public ModelAndView deletePerson(@RequestParam Long id, RedirectAttributes redirectAttributes) {
+		//ModelAndView mv = new ModelAndView("forward:/person");	//uma forma de redirecionamento do spring 
+		ModelAndView mv = new ModelAndView("redirect:/person");	//outra forma de redirecionamento do spring 
 
 		try {
 			personService.deletePerson(id);
@@ -70,7 +72,7 @@ public class PersonController {
 			e.printStackTrace();
 		}
 
-		mv.addObject("message", id + " excluído!");
+		redirectAttributes.addFlashAttribute("message", id + " excluído!");
 		return mv;
 	}
 
