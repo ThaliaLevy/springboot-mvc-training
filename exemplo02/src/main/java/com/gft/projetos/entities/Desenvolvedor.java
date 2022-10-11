@@ -18,6 +18,7 @@ public class Desenvolvedor {
 	private String quatroLetras;
 	private String email;
 	private BigDecimal salarioMensal;
+	
 	@ManyToOne
 	private Linguagem linguagem;
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<div layout:fragment="content">
+<div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">Nenhum desenvolvedor cadastrado!</div>
+<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+	<div th:if="${not #lists.isEmpty(lista)}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>quatroLetras</th>
+					<th>email</th>
+					<th>salarioMensal</th>
+					<th>linguagem</th>	<!-- //ainda será tratado -->
+					<th>Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="desenvolvedor : ${lista}">
+					<td th:text="${desenvolvedor.id}"></td>
+					<td th:text="${desenvolvedor.nome}"></td>
+					<td th:text="${desenvolvedor.quatroLetras}"></td>
+					<td th:text="${desenvolvedor.email}"></td>
+					<td th:text="${desenvolvedor.salarioMensal}"></td>
+					<td th:text="${desenvolvedor.linguagem}"></td>
+					<td>
+					<a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/editar(id=${desenvolvedor.id})}">Editar</a>
+					<a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/excluir(id=${desenvolvedor.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</html>
