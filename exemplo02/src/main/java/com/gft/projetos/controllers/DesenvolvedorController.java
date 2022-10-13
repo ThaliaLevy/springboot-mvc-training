@@ -13,10 +13,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.projetos.entities.Desenvolvedor;
 import com.gft.projetos.services.DesenvolvedorService;
+import com.gft.projetos.services.LinguagemService;
 
 @Controller
 @RequestMapping("desenvolvedor")
 public class DesenvolvedorController {
+
+	@Autowired
+	private LinguagemService linguagemService;
 
 	@Autowired
 	private DesenvolvedorService desenvolvedorService;
@@ -24,34 +28,44 @@ public class DesenvolvedorController {
 	@RequestMapping(path = "novo")
 	public ModelAndView novoDesenvolvedor() {
 		ModelAndView mv = new ModelAndView("desenvolvedor/form.html");
+
+		mv.addObject("listaLinguagens", linguagemService.listarLinguagens());
 		mv.addObject("desenvolvedor", new Desenvolvedor());
 		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "novo")
 	public ModelAndView salvarDesenvolvedor(@Valid Desenvolvedor desenvolvedor, BindingResult bindingResult) {
-		ModelAndView mv = new ModelAndView("desenvolvedor/novo.html");
+		ModelAndView mv = new ModelAndView("desenvolvedor/form.html");
+
+		boolean novo = true;
+
+		if (desenvolvedor.getId() != null) {
+			novo = false;
+		}
 
 		if (bindingResult.hasErrors()) {
 			mv.addObject("desenvolvedor", desenvolvedor);
 			return mv;
 		}
 
-		Desenvolvedor desenvolvedorSalvo = desenvolvedorService.salvarDesenvolvedor(desenvolvedor);
-		if (desenvolvedor.getId() == null) {
+		desenvolvedorService.salvarDesenvolvedor(desenvolvedor);
+
+		if (novo) {
 			mv.addObject("desenvolvedor", new Desenvolvedor());
 		} else {
-			mv.addObject("desenvolvedor", desenvolvedorSalvo);
+			mv.addObject("desenvolvedor", desenvolvedor);
 		}
 
 		mv.addObject("mensagem", "Desenvolvedor salvo com sucesso!");
+		mv.addObject("listaLinguagens", linguagemService.listarLinguagens());
 		return mv;
 	}
 
 	@RequestMapping
-	public ModelAndView listarDesenvolvedores() {
+	public ModelAndView listarDesenvolvedores(String nome, String quatroLetras) {
 		ModelAndView mv = new ModelAndView("desenvolvedor/listar.html");
-		mv.addObject("lista", desenvolvedorService.listarDesenvolvedores());
+		mv.addObject("lista", desenvolvedorService.listarDesenvolvedores(nome, quatroLetras));
 
 		return mv;
 	}
@@ -68,6 +82,7 @@ public class DesenvolvedorController {
 			mv.addObject("mensagem", e.getMessage());
 		}
 
+		mv.addObject("listaLinguagens", linguagemService.listarLinguagens());
 		mv.addObject("desenvolvedor", desenvolvedor);
 
 		return mv;
