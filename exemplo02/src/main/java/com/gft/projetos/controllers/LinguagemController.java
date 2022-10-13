@@ -32,16 +32,23 @@ public class LinguagemController {
 	public ModelAndView salvarLinguagem(@Valid Linguagem linguagem, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView("linguagem/novo.html");
 
+		boolean novo = true;
+
+		if (linguagem.getId() != null) {
+			novo = false;
+		}
+
 		if (bindingResult.hasErrors()) {
 			mv.addObject("linguagem", linguagem);
 			return mv;
 		}
 
-		Linguagem linguagemSalva = linguagemService.salvarLinguagem(linguagem);
-		if (linguagem.getId() == null) {
+		linguagemService.salvarLinguagem(linguagem);
+		
+		if (novo) {
 			mv.addObject("linguagem", new Linguagem());
 		} else {
-			mv.addObject("linguagem", linguagemSalva);
+			mv.addObject("linguagem", linguagem);
 		}
 
 		mv.addObject("mensagem", "Linguagem salva com sucesso!");

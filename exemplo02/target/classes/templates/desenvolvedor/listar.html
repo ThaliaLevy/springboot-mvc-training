@@ -1,20 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout.html}" lang="pt-br">
 
 <div layout:fragment="content">
-<div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">Nenhum desenvolvedor cadastrado!</div>
-<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+	<div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">Nenhum
+		desenvolvedor encontrado!</div>
+	<div class="alert alert-primary" th:if="${mensagem != null}"
+		th:text="${mensagem}"></div>
+	<div class="card">
+		<div class="card-header">
+			<p class="text-primary">Filtrar desenvolvedor</p>
+		</div>
+		<div class="card-body">
+			<form method="GET">
+				<div class="form-group mb-3">
+					<label for="nome">Nome:</label> 
+					<input class="form-control" type="text" name="nome"></input>
+				</div>		
+				<div class="form-group mb-3">
+					<label for="quatroLetras">Quatro letras:</label> 
+					<input class="form-control" type="text" name="quatroLetras"></input>
+				</div>		
+				<button type="submit" class="btn btn-primary">Pesquisar desenvolvedor</button>
+			</form>
+		</div>
+	</div>
 	<div th:if="${not #lists.isEmpty(lista)}">
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Nome</th>
-					<th>quatroLetras</th>
-					<th>email</th>
-					<th>salarioMensal</th>
-					<th>linguagem</th>	<!-- //ainda será tratado -->
+					<th>Quatro letras</th>
+					<th>Email</th>
+					<th>Salario mensal</th>
+					<th>Linguagem</th>
 					<th>Opções</th>
 				</tr>
 			</thead>
@@ -24,11 +45,13 @@
 					<td th:text="${desenvolvedor.nome}"></td>
 					<td th:text="${desenvolvedor.quatroLetras}"></td>
 					<td th:text="${desenvolvedor.email}"></td>
-					<td th:text="${desenvolvedor.salarioMensal}"></td>
-					<td th:text="${desenvolvedor.linguagem}"></td>
-					<td>
-					<a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/editar(id=${desenvolvedor.id})}">Editar</a>
-					<a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/excluir(id=${desenvolvedor.id})}">Excluir</a>
+					<td
+						th:text="'R$' + ${#numbers.formatDecimal(desenvolvedor.salarioMensal, 0, 'POINT', 2, 'COMMA')}"></td>
+					<td th:text="${desenvolvedor.linguagem.nome}"></td>
+					<td><a class="btn btn-primary btn-sm"
+						th:href="@{/desenvolvedor/editar(id=${desenvolvedor.id})}">Editar</a>
+						<a class="btn btn-primary btn-sm"
+						th:href="@{/desenvolvedor/excluir(id=${desenvolvedor.id})}">Excluir</a>
 					</td>
 				</tr>
 			</tbody>

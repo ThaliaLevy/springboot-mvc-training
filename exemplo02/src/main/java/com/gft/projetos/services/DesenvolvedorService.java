@@ -20,8 +20,18 @@ public class DesenvolvedorService {
 		return desenvolvedorRepository.save(desenvolvedor);
 	}
 
-	public List<Desenvolvedor> listarDesenvolvedores() {
+	public List<Desenvolvedor> listarDesenvolvedores(String nome, String quatroLetras) {
+		if (nome != null || quatroLetras != null)
+			return listarDesenvolvedorPorNomeEQuatroLetras(nome, quatroLetras);
+		return listarTodosOsDesenvolvedores(); 
+	}
+
+	public List<Desenvolvedor> listarTodosOsDesenvolvedores() {
 		return desenvolvedorRepository.findAll();
+	}
+
+	public List<Desenvolvedor> listarDesenvolvedorPorNomeEQuatroLetras(String nome, String quatroLetras) {
+		return desenvolvedorRepository.findByNomeContainsAndQuatroLetrasContains(nome, quatroLetras);
 	}
 
 	public Desenvolvedor obterDesenvolvedor(Long id) throws Exception {
