@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang=" pt-br">
+<link rel="stylesheet"
+	th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" />
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}" />
+
+<head>
+<meta charset="utf-8" />
+<title>Index</title>
+</head>
+
+<body>
+	<div id="menu">
+		<nav style="background-color: #3f51b7">
+			<div class="nav-wrapper">
+				<ul id="nav-mobile" class="left hide-on-med-and-down">
+					<li class="tab"><a href="#"> 
+					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png"
+							style="padding: 4px 0 0 0" width="145px"></a></li>
+					<li class="tab"><a th:href="@{/pokemon/novo}">Cadastrar</a></li>
+					<li class="tab"><a th:href="@{/pokemon/listar}">Listar</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<div id="conteudo" class="container" layout:fragment="content"></div>
+	<script
+		th:src="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js}"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<body
+	style="background-image: url('https://www.xtrafondos.com/en/descargar.php?id=8254&resolucion=3840x2160'); background-size: 100%">
+	<div layout:fragment="content">
+		<div
+			style="width: 100%; height: 75vh; display: flex; align-items: center; justify-content: center">
+			<div class="card" style="opacity: 0.9; width: 500px;">
+				<div class="row">
+					<form class="col s12" method="POST" th:object="${pokemon}"
+						th:action="@{/pokemon/novo}">
+						<div class="row">
+							<input type="hidden" th:field="*{id}"></input>
+							<div class="input-field col s12">
+								<input id="especieDoPokemon" type="text"
+									th:field="*{especieDoPokemon}"> <label
+									for="especieDoPokemon">*Espécie:</label> <span
+									class="helper-text" data-error="wrong" data-success="right">Exemplo:
+									pikachu</span>
+							</div>
+							<div class="input-field col s12">
+								<input id="tipoDoPokemon" type="text"
+									th:field="*{tipoDoPokemon}"> <label for="tipoDoPokemon">*Tipo:</label>
+								<span class="helper-text" data-error="wrong"
+									data-success="right">Exemplo: elétrico</span>
+								<p th:text="${mensagem}"
+									style="color: green; font-size: 18px; margin-left: 20px"></p>
+								<p th:text="${mensagemErro}"
+									style="color: red; font-size: 18px; margin-left: 20px"></p>
+							</div>
+						</div>
+						<button type="submit" class="btn"
+							style="background-color: #3f51b7; margin: 0 0 15px 180px;">Cadastrar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
