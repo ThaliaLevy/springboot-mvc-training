@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<body
+	style="background-image: url('https://www.xtrafondos.com/wallpapers/pokemon-unite-8705.jpg'); background-size: 100%">
+	<div layout:fragment="content">
+		<div
+			style="width: 100%; display: flex; justify-content: center">
+			<!-- <form method="GET"> -->
+			<div class="card" style="opacity: 0.9; width: 500px;">
+				<p th:text="${mensagem}"
+					style="color: green; font-size: 18px; margin-left: 20px"></p>
+				<div th:if="${not #lists.isEmpty(listaPokemons)}">
+					<table class="centered">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Espécie</th>
+								<th>Tipo</th>
+								<th>Opções</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="pokemon : ${listaPokemons}">
+								<td th:text="${pokemon.id}"></td>
+								<td th:text="${pokemon.especieDoPokemon}"></td>
+								<td th:text="${pokemon.tipoDoPokemon}"></td>
+								<td class="btn" style="background-color: #3f51b7;"><a
+									th:href="@{/pokemon/editar(id=${pokemon.id})}"
+									style="color: white">Editar</a></td>
+								<td class="btn"
+									style="background-color: #3f51b7; margin-left: 10px"><a
+									th:href="@{/pokemon/excluir(id=${pokemon.id})}"
+									style="color: white">Excluir</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- </form> -->
+		</div>
+	</div>
+</body>
+</html>
