@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<body>
+
+<input id="entrada"  type="text"></input>
+<button id="button">inserir</button>
+
+
+	<script type="text/javascript">
+	const gerarInput = () => {
+		let number = document.querySelector("#entrada").value;
+		
+		console.log(number);
+		
+		for(let i = 0; i < number; i++){
+			const nodeInput = document.createElement("input");
+			
+			nodeInput.appendChild(node);
+		}
+		
+		let button = document.querySelector("#button");
+		button.addListener('click', gerarInput);
+	}
+	</script>
+</body>
+</html>

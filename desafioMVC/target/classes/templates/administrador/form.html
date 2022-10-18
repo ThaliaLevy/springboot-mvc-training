@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+<body>
+	<div layout:fragment="content">
+		<div class="alert alert-primary" th:if="${mensagem != null}"
+			th:text="${mensagem}"></div>
+		<div class="card">
+			<div class="card-header">
+				<p class="text-primary">Novo administrador</p>
+			</div>
+			<div class="card-body">
+				<form method="POST" th:object="${administrador}"
+					th:action="@{/administrador/novo}">
+					<input type="hidden" th:field="*{id}"></input>
+					<div class="form-group mb-3">
+						<label for="nome">Nome:</label> <input class="form-control"
+							type="text" th:field="*{nome}"></input>
+						<div class="text-danger" th:if="${#fields.hasErrors('nome')}"
+							th:errors="*{nome}"></div>
+					</div>
+					<div class="form-group mb-3">
+						<label for="quatroLetras">Quatro letras:</label> <input
+							class="form-control" type="text" th:field="*{quatroLetras}"></input>
+						<div class="text-danger"
+							th:if="${#fields.hasErrors('quatroLetras')}"
+							th:errors="*{quatroLetras}"></div>
+					</div>
+					<div class="form-group mb-3">
+						<label for="email">Email:</label> <input class="form-control"
+							type="email" th:field="*{email}"></input>
+						<div class="text-danger" th:if="${#fields.hasErrors('email')}"
+							th:errors="*{email}"></div>
+					</div>
+					<div class="form-group mb-3">
+						<label for="senha">Senha:</label> <input class="form-control"
+							type="text" th:field="*{senha}"></input>
+						<div class="text-danger" th:if="${#fields.hasErrors('senha')}"
+							th:errors="*{senha}"></div>
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

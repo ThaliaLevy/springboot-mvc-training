@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<body>
+<div layout:fragment="content">
+	<div class="alert alert-primary" th:if="${#lists.isEmpty(listaEventos)}">Nenhum evento encontrado!</div>
+	<div class="alert alert-primary" th:if="${mensagem != null}"
+		th:text="${mensagem}"></div>
+		
+	<div th:if="${not #lists.isEmpty(listaEventos)}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Data de início</th>
+					<th>Data final</th>
+					<th>Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="evento : ${listaEventos}">
+					<td th:text="${evento.id}"></td>
+					<td th:text="${evento.nome}"></td>
+					<td th:text="${evento.dataInicio}"></td>
+					<td th:text="${evento.dataFinal}"></td>
+					<td><a class="btn btn-primary btn-sm"
+						th:href="@{/evento/editar(id=${evento.id})}">Editar</a>
+						<a class="btn btn-primary btn-sm"
+						th:href="@{/evento/excluir(id=${evento.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>

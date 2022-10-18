@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<body>
+	<div layout:fragment="content">
+		<div class="alert alert-primary"
+			th:if="${#lists.isEmpty(listaGrupos)}">Nenhum grupo encontrado!</div>
+		<div class="alert alert-primary" th:if="${mensagem != null}"
+			th:text="${mensagem}"></div>
+
+		<div th:if="${not #lists.isEmpty(listaGrupos)}">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nome</th>
+						<th>Quantidade de pessoas</th>
+						<th>Participantes</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="grupo : ${listaGrupos}">
+						<td th:text="${grupo.id}"></td>
+						<td th:text="${grupo.nome}"></td>
+						<td th:text="${grupo.quantidadePessoas}"></td>
+						<td>
+							<p th:each="participante : ${grupo.participantes}">
+								<span th:text="${participante.nome}"></span>
+							</p>
+						</td>
+						<td><a class="btn btn-primary btn-sm"
+							th:href="@{/grupo/editar(id=${grupo.id})}">Editar</a> <a
+							class="btn btn-primary btn-sm"
+							th:href="@{/grupo/excluir(id=${grupo.id})}">Excluir</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

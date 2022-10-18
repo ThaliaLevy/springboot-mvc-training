@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<body>
+<div layout:fragment="content">
+	<div class="alert alert-primary" th:if="${#lists.isEmpty(listaAdministradores)}">Nenhum
+		administrador encontrado!</div>
+	<div class="alert alert-primary" th:if="${mensagem != null}"
+		th:text="${mensagem}"></div>
+		
+	<div th:if="${not #lists.isEmpty(listaAdministradores)}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Quatro letras</th>
+					<th>Email</th>
+					<th>Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="administrador : ${listaAdministradores}">
+					<td th:text="${administrador.id}"></td>
+					<td th:text="${administrador.nome}"></td>
+					<td th:text="${administrador.quatroLetras}"></td>
+					<td th:text="${administrador.email}"></td>
+					<td><a class="btn btn-primary btn-sm"
+						th:href="@{/administrador/editar(id=${administrador.id})}">Editar</a>
+						<a class="btn btn-primary btn-sm"
+						th:href="@{/administrador/excluir(id=${administrador.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>
