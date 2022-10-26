@@ -36,7 +36,8 @@ public class GrupoController {
 	@RequestMapping(method = RequestMethod.POST, path = "novo")
 	public ModelAndView cadastrarNovoGrupo(@Valid Grupo grupo, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView("grupo/form.html");
-
+		mv.addObject("listaParticipantes", participanteService.listarTodosOsParticipantes());
+		
 		boolean grupoExistente = false;
 
 		if (grupo.getId() != null) {
@@ -45,23 +46,19 @@ public class GrupoController {
 
 		if (bindingResult.hasErrors()) {
 			mv.addObject("grupo", grupo);
-			mv.addObject("listaParticipantes", participanteService.listarTodosOsParticipantes());
 			mv.addObject("mensagemErro", "*Campos obrigatórios não preenchidos.");
 			return mv;
 		}
 
 		grupoService.salvarGrupo(grupo);
 
-		mv.addObject("listaParticipantes", participanteService.listarTodosOsParticipantes());
-
 		if (grupoExistente) {
-			mv.addObject("grupo", grupo);
 			mv.addObject("mensagem", "Grupo editado com sucesso!");
 		} else {
-			mv.addObject("grupo", new Grupo());
 			mv.addObject("mensagem", "Grupo salvo com sucesso!");
 		}
 
+		mv.addObject("grupo", new Grupo());
 		return mv;
 	}
 
@@ -70,7 +67,6 @@ public class GrupoController {
 		ModelAndView mv = new ModelAndView("grupo/listar.html");
 
 		mv.addObject("listaGrupos", grupoService.listarTodosOsGrupos());
-		mv.addObject("grupo", new Grupo());
 		return mv;
 	}
 
@@ -79,6 +75,7 @@ public class GrupoController {
 		ModelAndView mv = new ModelAndView("grupo/form.html");
 
 		mv.addObject("listaParticipantes", participanteService.listarTodosOsParticipantes());
+		mv.addObject("participantesGrupo", grupoService.editarGrupo(id));
 		mv.addObject("grupo", grupoService.editarGrupo(id));
 		return mv;
 	}

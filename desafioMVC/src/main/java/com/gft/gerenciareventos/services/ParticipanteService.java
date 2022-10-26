@@ -20,7 +20,7 @@ public class ParticipanteService {
 	}
 
 	public List<Participante> listarTodosOsParticipantes() {
-		return participanteRepository.findAll();
+			return participanteRepository.findAll();
 	}
 
 	public Participante editarParticipante(Long id) {
@@ -30,5 +30,9 @@ public class ParticipanteService {
 
 	public void excluirParticipante(Long id) {
 		participanteRepository.deleteById(id);
+	}
+	
+	public void buscarParticipantes(Long id) {
+		participanteRepository.findAll();
 	}
 }

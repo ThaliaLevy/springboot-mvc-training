@@ -26,8 +26,8 @@ public class Participante {
 	@Size(min = 4, max = 4, message = "Devem ser quatro letras.")
 	private String quatroLetras;
 
-	@NotEmpty(message = "Senha não pode ser vazia.")
-	private String senha;
+	@NotEmpty(message = "Nível não pode ser vazio.")
+	private String nivel;
 
 	public Long getId() {
 		return id;
@@ -61,11 +61,11 @@ public class Participante {
 		this.quatroLetras = quatroLetras;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getNivel() {
+		return nivel;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
 	}
 }

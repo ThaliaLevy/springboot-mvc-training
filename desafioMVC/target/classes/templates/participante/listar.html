@@ -18,6 +18,7 @@
 					<th>Nome</th>
 					<th>Quatro letras</th>
 					<th>Email</th>
+					<th>Nível</th>
 					<th>Opções</th>
 				</tr>
 			</thead>
@@ -27,6 +28,7 @@
 					<td th:text="${participante.nome}"></td>
 					<td th:text="${participante.quatroLetras}"></td>
 					<td th:text="${participante.email}"></td>
+					<td th:text="${participante.nivel}"></td>
 					<td><a class="btn btn-primary btn-sm"
 						th:href="@{/participante/editar(id=${participante.id})}">Editar</a>
 						<a class="btn btn-primary btn-sm"

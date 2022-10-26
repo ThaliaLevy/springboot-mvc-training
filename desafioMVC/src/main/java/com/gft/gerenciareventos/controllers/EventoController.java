@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gft.gerenciareventos.entities.Evento;
+import com.gft.gerenciareventos.services.AtividadeService;
 import com.gft.gerenciareventos.services.EventoService;
+import com.gft.gerenciareventos.services.GrupoService;
 
 @Controller
 @RequestMapping("evento")
@@ -19,11 +21,19 @@ public class EventoController {
 
 	@Autowired
 	private EventoService eventoService;
+	
+	@Autowired
+	private GrupoService grupoService;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	@RequestMapping(path = "novo")
 	public ModelAndView exibirTelaNovoEvento() {
 		ModelAndView mv = new ModelAndView("evento/form.html");
 
+		mv.addObject("listaGrupos", grupoService.listarTodosOsGrupos());
+		mv.addObject("listaAtividades", atividadeService.listarTodasAsAtividades());
 		mv.addObject("evento", new Evento());
 		return mv;
 	}
@@ -31,6 +41,8 @@ public class EventoController {
 	@RequestMapping(method = RequestMethod.POST, path = "novo")
 	public ModelAndView cadastrarNovoEvento(@Valid Evento evento, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView("evento/form.html");
+		mv.addObject("listaGrupos", grupoService.listarTodosOsGrupos());
+		mv.addObject("listaAtividades", atividadeService.listarTodasAsAtividades());
 
 		boolean eventoExistente = false;
 
@@ -47,13 +59,12 @@ public class EventoController {
 		eventoService.salvarEvento(evento);
 
 		if (eventoExistente) {
-			mv.addObject("evento", evento);
 			mv.addObject("mensagem", "Evento editado com sucesso!");
 		} else {
-			mv.addObject("evento", new Evento());
 			mv.addObject("mensagem", "Evento salvo com sucesso!");
 		}
 
+		mv.addObject("evento", new Evento());
 		return mv;
 	}
 
@@ -62,7 +73,6 @@ public class EventoController {
 		ModelAndView mv = new ModelAndView("evento/listar.html");
 
 		mv.addObject("listaEventos", eventoService.listarTodosOsEventos());
-		mv.addObject("evento", new Evento());
 		return mv;
 	}
 
@@ -70,6 +80,8 @@ public class EventoController {
 	public ModelAndView editarEvento(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("evento/form.html");
 
+		mv.addObject("listaGrupos", grupoService.listarTodosOsGrupos());
+		mv.addObject("listaAtividades", atividadeService.listarTodasAsAtividades());
 		mv.addObject("evento", eventoService.editarEvento(id));
 		return mv;
 	}

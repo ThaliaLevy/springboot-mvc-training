@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}" lang="pt-br">
+
+<head>
+<title>Formulário</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var listaEventos = /*[[${listaEventos}]]*/null;
+	/*]]>*/
+</script>
+<script th:src="@{/js/controle-atividades.js}"></script>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div style="display: flex; justify-content: center; margin-top: 5%">
+			<div style="background-color: black; color: white; background-color: rgba(0, 0, 0, 0.4); width: 1000px;">
+				<div style="background-color: rgba(0, 0, 0, 0.4); height: 15vh; display: flex; align-items: center; justify-content: center">
+					<h4>Controle de atividades concluídas</h4>
+				</div>
+				<form method="POST" th:object="${atividadeConcluida}"
+					th:action="@{/evento/controle-atividades}">
+					<div style="display: flex; flex-direction: row; text-align: center; margin-top: 30px">
+						<input type="hidden" th:field="*{id}">
+						<div>
+							<label>Selecione um evento:</label>
+							<input type="text" name="nameDatalistEventos" placeholder="Digite ou selecione" list="datalistEventos" style="height: 38px; margin-top: 2px"> 
+							<datalist id="datalistEventos"></datalist>
+							<button id="buttonEventoEscolhido" class="btn btn-primary" style="height: 38px; margin-bottom: 5px">Selecionar</button>
+						</div>
+						<div>
+							<label>Selecione uma atividade:</label>
+							<input id="inputAtividades" disabled type="text" name="nameDatalistAtividades" placeholder="Digite ou selecione" list="datalistAtividades" style="height: 38px; margin-top: 2px"> 
+							<datalist id="datalistAtividades"></datalist>
+							<button id="buttonAtividadeEscolhida" class="btn btn-primary" style="height: 38px; margin-bottom: 5px">Selecionar</button>
+						</div>
+						<div>
+							<label>Selecione um grupo:</label>
+							<input id="inputGrupos" disabled type="text" name="nameDatalistGrupos" placeholder="Digite ou selecione" list="datalistGrupos" style="height: 38px; margin-top: 2px"> 
+							<datalist id="datalistGrupos"></datalist>
+							<button id="buttonGrupoEscolhido" class="btn btn-primary" style="height: 38px; margin-bottom: 5px">Abrir controle</button>
+						</div>
+					</div>
+				<!-- 	<div th:each="evento : *{eventos}">   
+						<div th:each="participante: ${grupo.participantes}">			
+							<p th:text="${participante.nome}"></p>
+						</div>   -->
+					
+					
+						<div style="color: white; margin-top: 70px; margin-bottom: 70px">
+							<table class="table"  style="color: white; text-align: center">
+								<thead>
+									<tr>
+										<th scope="col">Participante</th>
+										<th scope="col">Atividade concluída</th>
+										<th scope="col">Entrega atrasada</th>
+									</tr>
+								</thead>
+								<tbody id="campoGrupo">
+									<tr th:each="evento : *{eventos}">
+										<td>
+											<div th:each="grupo: ${evento.grupos}">
+												<div th:each="participante: ${grupo.participantes}">
+													<p th:text="${participante.nome}"></p>
+												</div>
+											</div>
+										</td>
+										<td><input type="hidden" th:id="${evento}" th:value="${evento.id}" name="eventos"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<br>
+						<button id="buttonSalvarAlteracoes" type="submit" class="btn btn-primary" style="margin-left: 40%; margin-top: 10px; margin-bottom: 10px">Salvar alterações</button>
+					<!--	</div> -->
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

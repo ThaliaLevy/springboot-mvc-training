@@ -58,4 +58,10 @@ public class Grupo {
 	public void setParticipantes(List<Participante> participantes) {
 		this.participantes = participantes;
 	}
+
+	@Override
+	public String toString() {
+		return "Grupo [id=" + id + ", nome=" + nome + ", quantidadePessoas=" + quantidadePessoas + ", participantes="
+				+ participantes + "]";
+	}
 }

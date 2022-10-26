@@ -1,11 +1,13 @@
 package com.gft.gerenciareventos.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
@@ -30,8 +32,13 @@ public class Evento {
 	@Temporal(TemporalType.DATE)
 	private Date dataFinal;
 
-	@NotEmpty(message = "Senha não pode ser vazia.")
-	private String senha;
+	@NotEmpty(message = "Inserir ao menos 1 grupo.")
+	@ManyToMany
+	private List<Grupo> grupos;
+
+	@NotEmpty(message = "Inserir ao menos 1 atividade.")
+	@ManyToMany
+	private List<Atividade> atividades;
 
 	public Long getId() {
 		return id;
@@ -65,11 +72,19 @@ public class Evento {
 		this.dataFinal = dataFinal;
 	}
 
-	public String getSenha() {
-		return senha;
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+
+	public void setAtividades(List<Atividade> atividades) {
+		this.atividades = atividades;
 	}
 }
